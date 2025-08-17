@@ -1,0 +1,33 @@
+jenkins:
+  systemMessage: |
+    Jenkins (JCasC) — managed by code. Default admin: admin / admin
+  numExecutors: 0
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "admin"
+  nodes: []
+  remotingSecurity:
+    enabled: true
+
+
+  globalNodeProperties:
+    - envVars:
+        env:
+          - key: MONOREPO_URL
+            value: "${MONOREPO_URL:-CHANGE_ME_GIT_URL}"
+          - key: AWS_DEFAULT_REGION
+            value: "${AWS_DEFAULT_REGION:-eu-west-1}"
+          - key: TF_IN_AUTOMATION
+            value: "1"
+
+unclassified:
+  location:
+    url: "http://localhost:8080/"
+  ansiColorBuildWrapper:
+    globalColorMapName: xterm

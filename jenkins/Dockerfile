@@ -1,4 +1,5 @@
-FROM jenkins/jenkins:latest-jdk21
+ARG JENKINS_TAG=lts
+FROM jenkins/jenkins:${JENKINS_TAG}
 
 USER root
 RUN apt-get update \
@@ -7,17 +8,14 @@ RUN apt-get update \
 USER jenkins
 
 # Preinstall plugins
-COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+COPY jenkins/plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
 
 # JCasC + Job DSL
-COPY casc/ /usr/share/jenkins/ref/casc/
-COPY jobs/ /usr/share/jenkins/ref/jobs-dsl/
+COPY jenkins/casc/ /usr/share/jenkins/ref/casc/
+COPY jenkins/jobs/ /usr/share/jenkins/ref/jobs-dsl/
+COPY jenkins/init/load-jobdsl.groovy /usr/share/jenkins/ref/init.groovy.d/load-jobdsl.groovy
 
 # Autoload JCasC
-ENV CASC_JENKINS_CONFIG=/usr/share/jenkins/ref/casc/jenkins.yaml \
+ENV CASC_JENKINS_CONFIG=/usr/share/jenkins/ref/casc/jenkins.yml \
     JENKINS_OPTS="--argumentsRealm.passwd.admin=admin --argumentsRealm.roles.user=admin --argumentsRealm.roles.admin=admin"
-
-# Optionally, drop a marker to auto-run a seed DSL on first start via init.groovy.d
-RUN mkdir -p /usr/share/jenkins/ref/init.groovy.d
-COPY jobs/seed.groovy /usr/share/jenkins/ref/init.groovy.d/seed.groovy

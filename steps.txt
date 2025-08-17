@@ -1,3 +1,13 @@
-1. Run Docker-Compose 
+0. Fill your .env.example and rename to .env
 
-docker compose --env-file ../.env up -d --build
+1. (optional) Remove Your Containers
+
+docker compose down -v
+
+2. Run Docker-Compose 
+
+docker compose up -d
+
+3. Access Jenkins 
+
+Open your browser using "http://localhost:8080/" and admin/admin as config in casc/jenkins.yml - Dockerfile

@@ -1,4 +1,10 @@
-FROM jenkins/jenkins:lts-jdk17
+FROM jenkins/jenkins:latest-jdk21
+
+USER root
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+USER jenkins
 
 # Preinstall plugins
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt

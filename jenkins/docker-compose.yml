@@ -1,6 +1,8 @@
 services:
   jenkins:
     build: .
+    env_file:
+      - ../.env  
     ports: ["8080:8080", "50000:50000"]
     environment:
       - MONOREPO_URL=${MONOREPO_URL}
@@ -15,7 +17,9 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
   agent:
-    build: ../jenkins-agent
+    build: 
+      context: ..
+      dockerfile: jenkins-agent/Dockerfile
     environment:
       - JENKINS_URL=http://jenkins:8080
       - JENKINS_AGENT_NAME=agent-1

@@ -29,8 +29,8 @@ def mkPipeline = { name, jenkinsfile ->
   }
 }
 
-mkPipeline('0-network', 'jenkins/pipelines/0-network.Jenkinsfile')
-mkPipeline('1-iam',     'jenkins/pipelines/1-iam.Jenkinsfile')
-mkPipeline('2-compute', 'jenkins/pipelines/2-compute.Jenkinsfile')
-mkPipeline('3-dns',     'jenkins/pipelines/3-dns.Jenkinsfile')
-mkPipeline('99-ec2-update', 'jenkins/pipelines/99-ec2-update.Jenkinsfile')
+mkPipeline('0-network', 'jenkins/DespliegueAws/pipelines/0-network.Jenkinsfile')
+mkPipeline('1-iam',     'jenkins/DespliegueAws/pipelines/1-iam.Jenkinsfile')
+mkPipeline('2-compute', 'jenkins/DespliegueAws/pipelines/2-compute.Jenkinsfile')
+mkPipeline('3-dns',     'jenkins/DespliegueAws/pipelines/3-dns.Jenkinsfile')
+mkPipeline('99-ec2-update', 'jenkins/DespliegueAws/pipelines/99-ec2-update.Jenkinsfile')
